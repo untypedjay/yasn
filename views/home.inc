@@ -7,7 +7,7 @@
     <meta name="description" content="Yet another social network"/>
     <meta name="author" content="Johannes Hüsers"/>
     <title>YASN</title>
-    <link rel="stylesheet" href="css/main.min.css"/>
+    <link rel="stylesheet" href="css/main.min.css?<?php echo date('l jS \of F Y h:i:s A'); ?>"/>
   </head>
   <body class="wrapper">
     <?php self::renderView('partial/header', $data); ?>

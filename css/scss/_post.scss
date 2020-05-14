@@ -1,0 +1,22 @@
+.post {
+  border-radius: 1em;
+  margin: 1.5em;
+  padding: 0.5em;
+  position: relative;
+  top: -7em;
+  box-shadow: 0 19px 38px rgba(0,0,0,0.10), 0 15px 12px rgba(0,0,0,0.04);
+  background-color: white;
+
+  .post-header {
+    display: flex;
+    justify-content: space-between;
+    color: $grey;
+    margin-bottom: 0.5em;
+  }
+
+  .post-footer {
+    color: $grey;
+    text-align: center;
+    margin-top: 0.5em;
+  }
+}

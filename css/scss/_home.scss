@@ -1,0 +1,39 @@
+.header-container {
+  height: 5em;
+  display: flex;
+  flex-direction: column;
+  padding: 3em 1.5em 0 1.5em;
+
+  input {
+    border-radius: 0.75em;
+    border: none;
+    padding: 0.5em;
+    font-size: 1.5em;
+    background: $space-cadet-bright;
+    color: white;
+  }
+}
+
+.title-container {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 3em;
+}
+
+.title {
+  font-size: 3em;
+}
+
+.post-container {
+  padding-top: 2em;
+  background-color: white;
+  border-top-left-radius: 2em;
+  border-top-right-radius: 2em;
+  margin-top: 15em;
+  color: black;
+}
+
+footer {
+  background-color: $cyclamen;
+  padding: 2em;
+}

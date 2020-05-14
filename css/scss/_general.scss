@@ -6,12 +6,13 @@ html {
 *:after {
   box-sizing: inherit;
   font-family: Arial, Helvetica, sans-serif;
-  height: 100%;
 	margin: 0;
 	padding: 0;
 }
 
 .wrapper {
-	padding: 1em;
 	background-color: $space-cadet;
+	color: white;
+	display: flex;
+	flex-direction: column;
 }
