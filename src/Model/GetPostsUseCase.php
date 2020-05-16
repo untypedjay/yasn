@@ -9,11 +9,10 @@ class GetPostsUseCase {
   }
 
   public function execute(): array {
-    $c = $this->cart->getCart();
-    $res = array();
-    foreach ($this->repo->getBooksForCategory($categoryId) as $b) {
-      $res[] = new BookData($b, isset($c[$b->getId()]) ? $c[$b->getId()] : 0);
+    $posts = array();
+    foreach ($this->repo->getPosts() as $post) {
+      $posts[] = $post;
     }
-    return $res;
+    return $posts;
   }
 }

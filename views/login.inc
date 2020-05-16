@@ -6,27 +6,21 @@
     <meta name="keywords" content="yasn, forum, social network, yet another social network"/>
     <meta name="description" content="Yet another social network"/>
     <meta name="author" content="Johannes Hüsers"/>
-    <title>YASN</title>
+    <title>Login | YASN</title>
     <link rel="stylesheet" href="css/main.min.css?<?php echo date('l jS \of F Y h:i:s A'); ?>"/>
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
   </head>
   <body class="wrapper">
-    <?php self::renderView('partial/header', $data); ?>
-    <main class="post-container">
-      <?php if (sizeof($data['posts']) > 0) {
-        foreach ($data['posts'] as $post) {
-          self::renderView('partial/post', array (
-            'title' => $post->getTitle(),
-            'author' => $post->getAuthor(),
-            'date' => $post->getDate()
-          ));
-        }
-      } else { ?>
-        <p>No posts to display.</p>
-      <?php } ?>
+    <main class="login-container">
+      <h1 class="title">YASN</h1>
+      <h2>Welcome back!</h2>
+      <?php self::beginActionForm('LogIn', 'User', null, 'post'); ?>
+        <div class="login-form">
+          <input id="userName" name="un" placeholder="Username" value="<?php self::htmlOut($data['userName']); ?>">
+          <input type="password" id="password" name="pwd" placeholder="Password">
+          <button class="login-button">Log in</button>
+        </div>
+      <?php self::endActionForm(); ?>
     </main>
-    <?php self::renderView('partial/footer', array (
-      'user' => $data['user']
-    )); ?>
   </body>
 </html>

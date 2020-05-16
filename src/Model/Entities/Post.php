@@ -7,6 +7,12 @@ class Post {
   private $author;
   private $date;
 
+  public function __construct($id, $title, $author, $date) {
+    $this->id = $id;
+    $this->title = $title;
+    $this->author = $author;
+    $this->date = $date;
+  }
 
   public function getId() {
     return $this->id;
@@ -22,12 +28,5 @@ class Post {
 
   public function getDate() {
     return $this->date;
-  }
-
-  public function __construct($id, $title, $author, $date) {
-    $this->id = $id;
-    $this->title = $title;
-    $this->author = $author;
-    $this->date = $date;
   }
 }
