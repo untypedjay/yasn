@@ -75,6 +75,18 @@ class Repository implements \Model\Interfaces\Repository {
         $con->close();
         return $user;
     }
+
+    public function addUser(string $userName, string $password): void {
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $con = $this->getConnection();
+        $newUser = $con->real_escape_string($userName);
+        $hashedPassword = $con->real_escape_string($hashedPassword);
+        $stat = $this->executeStatement($con,
+                'INSERT INTO user (userName, passwordHash) VALUES (?, ?)',
+                function($s) use($newUser, $hashedPassword) { $s->bind_param('ss', $newUser, $hashedPassword); })->close();
+        $con->commit();
+        $con->close();
+    }
     
     public function getPosts(): array {
         $posts = array();

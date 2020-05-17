@@ -15,8 +15,8 @@
     <main class="main-container">
       <div class="new-post-form">
         <?php self::beginActionForm('AddPost', 'Post', null, 'post'); ?>
-          <textarea placeholder="Type your post title" name="pt" value="<?php self::htmlOut($data['title']); ?>"></textarea>
-          <textarea class="new-post-content" placeholder="Type your post"  name="pc" value="<?php self::htmlOut($data['content']); ?>"></textarea>
+          <textarea placeholder="Type your post title" name="pt" value="<?php self::htmlOut($data['title']); ?>" required></textarea>
+          <textarea class="new-post-content" placeholder="Type your post"  name="pc" value="<?php self::htmlOut($data['content']); ?>" required></textarea>
           <button class="primary-button">Post</button>
         <?php self::endActionForm(); ?>
       </div>

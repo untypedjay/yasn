@@ -34,7 +34,8 @@ class Post extends \Framework\Controller {
     $user = $this->getAuthenticatedUserUseCase->execute();
     if ($user != null) {
       return $this->renderView('newPost', array(
-        'user' => $user
+        'user' => $user,
+        'keywords' => null
       ));
     } else {
       return $this->renderView('login', array(

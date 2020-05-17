@@ -6,7 +6,7 @@
     <meta name="keywords" content="yasn, forum, social network, yet another social network"/>
     <meta name="description" content="Yet another social network"/>
     <meta name="author" content="Johannes Hüsers"/>
-    <title>Login | YASN</title>
+    <title>Signup | YASN</title>
     <link rel="stylesheet" href="css/main.min.css?<?php echo date('l jS \of F Y h:i:s A'); ?>"/>
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
   </head>
@@ -14,15 +14,14 @@
     <main class="login-container">
       <?php self::actionLink('YASN', 'Index', 'Home', null, 'title'); ?>
       <p>Yet Another Social Network</p>
-      <h2>Welcome back!</h2>
-      <?php self::beginActionForm('LogIn', 'User', null, 'post'); ?>
+      <h2>Glad, you want to be part of the YASN family!</h2>
+      <?php self::beginActionForm('SignUp', 'User', null, 'post'); ?>
         <div class="login-form">
           <input id="userName" name="un" placeholder="Username" value="<?php self::htmlOut($data['userName']); ?>" required>
           <input type="password" id="password" name="pwd" placeholder="Password" required>
-          <button class="primary-button">Log In</button>
+          <button class="primary-button">Sign Up</button>
         </div>
       <?php self::endActionForm(); ?>
-      <p>New to YASN? Signup <?php self::actionLink('here', 'SignUp', 'User'); ?>.</p>
     </main>
   </body>
 </html>

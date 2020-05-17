@@ -8,15 +8,16 @@ class User extends \Framework\Controller {
   private $getAuthenticatedUserUseCase;
   private $signInUseCase;
   private $signOutUseCase;
+  private $signUpUserUseCase;
 
-  public function __construct(
-    \Model\GetAuthenticatedUserUseCase $getAuthenticatedUserUseCase,
-    \Model\SignInUseCase $signInUseCase,
-    \Model\SignOutUseCase $signOutUseCase
-  ) {
+  public function __construct(\Model\GetAuthenticatedUserUseCase $getAuthenticatedUserUseCase,
+                              \Model\SignInUseCase $signInUseCase,
+                              \Model\SignOutUseCase $signOutUseCase,
+                              \Model\SignUpUserUseCase $signUpUserUseCase) {
     $this->getAuthenticatedUserUseCase = $getAuthenticatedUserUseCase;
     $this->signInUseCase = $signInUseCase;
     $this->signOutUseCase = $signOutUseCase;
+    $this->signUpUserUseCase = $signUpUserUseCase;
   }
 
   public function GET_LogIn() {
@@ -35,14 +36,31 @@ class User extends \Framework\Controller {
       return $this->renderView('login', array(
         'user' => $this->getAuthenticatedUserUseCase->execute(),
         'userName' => $this->getParam(self::PARAM_USER_NAME),
-        'errors' => array('Invalid user name or password.') // gegen hacker
+        'errors' => array('Invalid user name or password.')
       ));
     }
-    return $this->redirect('Index', 'Home'); //TODO better location, maybe again from context?! ;)
+    return $this->redirect('Index', 'Home');
   }
 
   public function POST_LogOut() {
     $this->signOutUseCase->execute();
-    return $this->redirect('Index', 'Home'); //TODO better location...
+    return $this->redirect('Index', 'Home');
+  }
+
+  public function GET_SignUp() {
+    return $this->renderView('signup', array(
+      'userName' => $this->getParam(self::PARAM_USER_NAME)
+    ));
+  }
+
+  public function POST_SignUp() {
+    if (!$this->signUpUserUseCase->execute($this->getParam(self::PARAM_USER_NAME), $this->getParam(self::PARAM_PASSWORD))) {
+      return $this->renderView('signup', array(
+        'user' => $this->getAuthenticatedUserUseCase->execute(),
+        'userName' => $this->getParam(self::PARAM_USER_NAME),
+        'errors' => array('Please provide a user name and a password.')
+      ));
+    }
+    return $this->redirect('Index', 'Home');
   }
 }

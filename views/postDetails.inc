@@ -21,7 +21,7 @@
 
       <?php if (isset($data['user'])):
         self::beginActionForm('AddComment', 'Post', array('pid' => $data['post']->getId()), 'post', 'new-comment'); ?>
-          <textarea placeholder="Leave a new comment..." name="cc" value="<?php self::htmlOut($data['commentContent']); ?>"></textarea>
+          <textarea placeholder="Leave a new comment..." name="cc" value="<?php self::htmlOut($data['commentContent']); ?>" required></textarea>
           <button class="primary-button">Post</button>
         <?php self::endActionForm();
       endif; ?>
