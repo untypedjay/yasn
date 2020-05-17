@@ -1,11 +1,17 @@
 .post {
-  border-radius: 1em;
-  margin: 1.5em;
+  border-radius: $component-border-radius;
+  margin: 1rem;
   padding: 0.5em;
-  position: relative;
-  top: -7em;
-  box-shadow: 0 19px 38px rgba(0,0,0,0.10), 0 15px 12px rgba(0,0,0,0.04);
+
+  box-shadow: $default-box-shadow;
   background-color: white;
+
+  .post-title {
+    text-decoration: none;
+    color: $space-cadet;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
 
   .post-header {
     display: flex;

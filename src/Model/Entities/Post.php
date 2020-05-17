@@ -5,13 +5,15 @@ class Post {
   private $id;
   private $title;
   private $author;
-  private $date;
+  private $time;
+  private $content;
 
-  public function __construct($id, $title, $author, $date) {
+  public function __construct($id, $title, $author, $time, $content) {
     $this->id = $id;
     $this->title = $title;
     $this->author = $author;
-    $this->date = $date;
+    $this->time = $time;
+    $this->content = $content;
   }
 
   public function getId() {
@@ -26,7 +28,16 @@ class Post {
     return $this->author;
   }
 
-  public function getDate() {
-    return $this->date;
+  public function getTime() {
+    $time = strtotime($this->time);
+    return date('M d', $time) . ' at ' . date('H:i A', $time);
+  }
+
+  public function getContent() {
+    return $this->content;
+  }
+
+  public function getComments() {
+    return $this->comments;
   }
 }

@@ -1,12 +1,15 @@
-.plus{
+.plus {
   position: relative;
   z-index: 1;
   width: 45px;
   height: 45px;
+  display: flex;
+  justify-content: center;
   color: $space-cadet;
   background: $cyclamen;
   border-radius: 50%;
   border: none;
+  text-decoration: none;
   transition: box-shadow 400ms cubic-bezier(.2,0,.7,1), transform 200ms cubic-bezier(.2,0,.7,1);
   &:after {
       content: "+";
@@ -19,4 +22,13 @@
       0 0 1px 30px rgba($cyclamen, 0.1),
       0 0 1px 45px rgba($cyclamen, 0.1);
   }
+}
+
+.primary-button {
+  background: $cyclamen;
+  color: $space-cadet;
+  border-radius: $component-border-radius;
+  border: none;
+  padding: 0.5em;
+  font-size: 1.5em;
 }

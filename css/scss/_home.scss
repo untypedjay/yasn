@@ -2,13 +2,13 @@
   height: 5em;
   display: flex;
   flex-direction: column;
-  padding: 3em 1.5em 0 1.5em;
+  padding: 3em 1rem 0 1rem;
 
   input {
-    border-radius: 0.75em;
+    border-radius: $component-border-radius;
     border: none;
     padding: 0.5em;
-    font-size: 1.5em;
+    font-size: 1.5rem;
     background: $space-cadet-bright;
     color: white;
   }
@@ -22,14 +22,18 @@
 
 .title {
   font-size: 3em;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+  color: white;
 }
 
-.post-container {
-  padding-top: 2em;
+.main-container {
   background-color: white;
-  border-top-left-radius: 2em;
-  border-top-right-radius: 2em;
-  margin-top: 15em;
+  border-top-left-radius: $layout-border-radius;
+  border-top-right-radius: $layout-border-radius;
+  margin-top: 13em;
   color: black;
 }
 

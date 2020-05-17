@@ -1,0 +1,27 @@
+.new-post-form {
+  display: flex;
+  flex-direction: column;
+  margin: 0 1rem;
+  height: 50vh;
+
+  textarea,
+  button {
+    width: 100%;
+  }
+
+  textarea {
+    border-radius: $component-border-radius;
+    border: none;
+    font-size: 1.5rem;
+    padding: 0.5em;
+    position: relative;
+    top: -1.5em;
+    box-shadow: $default-box-shadow;
+    background-color: white;
+  }
+}
+
+.new-post-content {
+  min-height: 8em;
+  margin-top: 1em;
+}

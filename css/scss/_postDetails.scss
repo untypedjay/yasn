@@ -1,0 +1,51 @@
+.post-details {
+  background-color: white;
+  border-radius: $component-border-radius;
+  margin: 11em 1rem 0 1rem;
+  color: $space-cadet;
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+}
+
+.post-title {
+  font-size: 2.3em;
+  font-weight: bold;
+  margin-bottom: 0.1em;
+}
+
+.post-metadata {
+  color: $space-cadet-bright;
+  margin-bottom: 1em;
+}
+
+.post-content {
+  font-size: 1.2em;
+}
+
+.new-comment {
+  display: flex;
+  flex-direction: column;
+  margin: 2em 1rem;
+
+  textarea {
+    border-radius: 0.5em;
+    border: none;
+    font-size: 1.5rem;
+    padding: 0.5em;
+    box-shadow: $default-box-shadow;
+    background-color: white;
+    margin-bottom: 1em;
+  }
+}
+
+.comment-container {
+  background-color: white;
+  border-top-left-radius: $layout-border-radius;
+  border-top-right-radius: $layout-border-radius;
+  margin-top: 1em;
+  color: $space-cadet;
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+}

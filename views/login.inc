@@ -12,13 +12,14 @@
   </head>
   <body class="wrapper">
     <main class="login-container">
-      <h1 class="title">YASN</h1>
+      <?php self::actionLink('YASN', 'Index', 'Home', null, 'title'); ?>
+      <p>Yet Another Social Network</p>
       <h2>Welcome back!</h2>
       <?php self::beginActionForm('LogIn', 'User', null, 'post'); ?>
         <div class="login-form">
           <input id="userName" name="un" placeholder="Username" value="<?php self::htmlOut($data['userName']); ?>">
           <input type="password" id="password" name="pwd" placeholder="Password">
-          <button class="login-button">Log in</button>
+          <button class="primary-button">Log in</button>
         </div>
       <?php self::endActionForm(); ?>
     </main>

@@ -2,8 +2,16 @@
   margin: 1.5em;
 
   .title,
+  p,
   h2 {
     text-align: center;
+  }
+
+  p {
+    margin-bottom: 3em;
+  }
+
+  h2 {
     margin-bottom: 1em;
   }
 }
@@ -12,23 +20,17 @@
   display: flex;
   flex-direction: column;
 
-  input,
-  .login-button {
-    border-radius: 0.5em;
+  input {
+    border-radius: $component-border-radius;
     border: none;
     padding: 0.5em;
     font-size: 1.5em;
-  }
-
-  input {
     background: $space-cadet-bright;
     color: white;
     margin-bottom: 0.5em;
   }
 
-  .login-button {
-    background: $cyclamen;
-    color: $space-cadet;
+  button {
     margin-top: 1em;
   }
 }

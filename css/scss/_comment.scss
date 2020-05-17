@@ -1,0 +1,17 @@
+.comment-content {
+  border-radius: $component-border-radius;
+  padding: 0.5em;
+  box-shadow: $default-box-shadow;
+  background-color: white;
+  margin-bottom: 1em;
+}
+
+.comment-author {
+  font-weight: bold;
+}
+
+.comment-footer {
+  color: $space-cadet-bright;
+  margin-top: 0.5em;
+  text-align: right;
+}
