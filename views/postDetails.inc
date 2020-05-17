@@ -36,9 +36,12 @@
         <div class="comment-container">
           <?php foreach ($data['comments'] as $comment) {
             self::renderView('partial/comment', array (
+              'id' => $comment->getCommentId(),
               'author' => $comment->getAuthor(),
               'content' => $comment->getContent(),
-              'time' => $comment->getTime()
+              'time' => $comment->getTime(),
+              'user' => $data['user'],
+              'postId' => $data['post']->getId()
             ));
           } ?>
         </div>

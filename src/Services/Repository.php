@@ -113,17 +113,28 @@ class Repository implements \Model\Interfaces\Repository {
         return null;
     }
 
+    public function getPostFromComment(string $postId): ?\Model\Entities\Post {
+        $con = $this->getConnection();
+        $res = $this->executeQuery($con, 'SELECT postId FROM comment');
+        while ($comment = $res->fetch_object()) {
+            if ($comment->postId == $postId) {
+                return $this->getPostFromId($postId);
+            }
+        }
+        $res->close();
+        $con->close();
+        return null;
+    }
+
     public function deletePost(string $postId): void {
         $con = $this->getConnection();
         $res = $this->executeQuery($con, "DELETE FROM post WHERE id = $postId");
-        $res->close;
         $con->close();
     }
 
     public function deleteComment(string $commentId): void {
         $con = $this->getConnection();
         $res = $this->executeQuery($con, "DELETE FROM comment WHERE id = $commentId");
-        $res->close();
         $con->close();
     }
 

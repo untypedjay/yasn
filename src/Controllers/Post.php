@@ -4,6 +4,7 @@ namespace Controllers;
 class Post extends \Framework\Controller {
   const PARAM_USER_NAME = 'un';
   const PARAM_POST_ID = 'pid';
+  const PARAM_COMMENT_ID = 'cid';
   const PARAM_COMMENT_CONTENT = 'cc';
   const PARAM_POST_TITLE = 'pt';
   const PARAM_POST_CONTENT = 'pc';
@@ -17,6 +18,7 @@ class Post extends \Framework\Controller {
   private $searchUseCase;
   private $deletePostUseCase;
   private $deleteCommentUseCase;
+  private $getPostFromCommentUseCase;
 
   public function __construct(\Model\GetAuthenticatedUserUseCase $getAuthenticatedUserUseCase,
                               \Model\GetPostFromIdUseCase $getPostFromIdUseCase,
@@ -25,7 +27,8 @@ class Post extends \Framework\Controller {
                               \Model\AddPostUseCase $addPostUseCase,
                               \Model\SearchUseCase $searchUseCase,
                               \Model\DeletePostUseCase $deletePostUseCase,
-                              \Model\DeleteCommentUseCase $deleteCommentUseCase) {
+                              \Model\DeleteCommentUseCase $deleteCommentUseCase,
+                              \Model\GetPostFromCommentUseCase $getPostFromCommentUseCase) {
     $this->getAuthenticatedUserUseCase = $getAuthenticatedUserUseCase;
     $this->getPostFromIdUseCase = $getPostFromIdUseCase;
     $this->getCommentsForPostUseCase = $getCommentsForPostUseCase;
@@ -34,6 +37,7 @@ class Post extends \Framework\Controller {
     $this->searchUseCase = $searchUseCase;
     $this->deletePostUseCase = $deletePostUseCase;
     $this->deleteCommentUseCase = $deleteCommentUseCase;
+    $this->getPostFromCommentUseCase = $getPostFromCommentUseCase;
   }
 
   public function GET_NewPost() {
@@ -80,6 +84,12 @@ class Post extends \Framework\Controller {
 
   public function POST_DeletePost() {
     $this->deletePostUseCase->execute($this->getParam(self::PARAM_POST_ID));
+    return $this->redirect('Index', 'Home');
+  }
+
+  public function POST_DeleteComment() {
+    $this->deleteCommentUseCase->execute($this->getParam(self::PARAM_COMMENT_ID));
+    $id = $this->getParam(self::PARAM_POST_ID);
     return $this->redirect('Index', 'Home');
   }
 
