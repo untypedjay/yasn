@@ -147,7 +147,14 @@ class Repository implements \Model\Interfaces\Repository {
             $posts[] = new \Model\Entities\Post($id, $title, $author, $date, $content);
         }
         $stat->close();
-        // TODO: search comments
+        $stat = $this->executeStatement($con,
+        'SELECT postId  FROM comment WHERE content LIKE ? OR author LIKE ?',
+        function($s) use($searchTerm) { $s->bind_param('ss', $searchTerm, $searchTerm); });
+        $stat->bind_result($postId);
+        while ($stat->fetch()) {
+            $posts[] = $this->getPostFromId($postId);
+        }
+        $stat->close();
         $con->close();
         return $posts;
     }
