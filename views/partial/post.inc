@@ -6,6 +6,6 @@
   <?php self::actionLink($data['title'], 'Details', 'Post', array('pid' => $data['id']), 'post-title'); ?>
   <div class="post-footer">
     <div>Last activity <span>2 mins</span> ago by <span>flyredpanda</span></div>
-    <div>12 comments</div>
+    <div><?php self::htmlOut($data['numberOfComments']); ?> comment(s)</div>
   </div>
 </article>

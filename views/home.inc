@@ -19,7 +19,8 @@
             'id' => $post->getId(),
             'title' => $post->getTitle(),
             'author' => $post->getAuthor(),
-            'time' => $post->getTime()
+            'time' => $post->getTime(),
+            'numberOfComments' => $data['nrOfComments'][$post->getId()]
           ));
         }
       } else { ?>
