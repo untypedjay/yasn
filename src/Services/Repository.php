@@ -113,6 +113,20 @@ class Repository implements \Model\Interfaces\Repository {
         return null;
     }
 
+    public function deletePost(string $postId): void {
+        $con = $this->getConnection();
+        $res = $this->executeQuery($con, "DELETE FROM post WHERE id = $postId");
+        $res->close;
+        $con->close();
+    }
+
+    public function deleteComment(string $commentId): void {
+        $con = $this->getConnection();
+        $res = $this->executeQuery($con, "DELETE FROM comment WHERE id = $commentId");
+        $res->close();
+        $con->close();
+    }
+
     public function getCommentsFromPost(string $postId): array {
         $comments = array();
         $con = $this->getConnection();

@@ -15,19 +15,25 @@ class Post extends \Framework\Controller {
   private $addCommentToPostUseCase;
   private $addPostUseCase;
   private $searchUseCase;
+  private $deletePostUseCase;
+  private $deleteCommentUseCase;
 
   public function __construct(\Model\GetAuthenticatedUserUseCase $getAuthenticatedUserUseCase,
                               \Model\GetPostFromIdUseCase $getPostFromIdUseCase,
                               \Model\GetCommentsForPostUseCase $getCommentsForPostUseCase,
                               \Model\AddCommentToPostUseCase $addCommentToPostUseCase,
                               \Model\AddPostUseCase $addPostUseCase,
-                              \Model\SearchUseCase $searchUseCase) {
+                              \Model\SearchUseCase $searchUseCase,
+                              \Model\DeletePostUseCase $deletePostUseCase,
+                              \Model\DeleteCommentUseCase $deleteCommentUseCase) {
     $this->getAuthenticatedUserUseCase = $getAuthenticatedUserUseCase;
     $this->getPostFromIdUseCase = $getPostFromIdUseCase;
     $this->getCommentsForPostUseCase = $getCommentsForPostUseCase;
     $this->addCommentToPostUseCase = $addCommentToPostUseCase;
     $this->addPostUseCase = $addPostUseCase;
     $this->searchUseCase = $searchUseCase;
+    $this->deletePostUseCase = $deletePostUseCase;
+    $this->deleteCommentUseCase = $deleteCommentUseCase;
   }
 
   public function GET_NewPost() {
@@ -69,6 +75,11 @@ class Post extends \Framework\Controller {
 
   public function POST_AddPost() {
     $this->addPostUseCase->execute($this->getParam(self::PARAM_POST_TITLE), $this->getAuthenticatedUserUseCase->execute()->getUserName(), $this->getParam(self::PARAM_POST_CONTENT));
+    return $this->redirect('Index', 'Home');
+  }
+
+  public function POST_DeletePost() {
+    $this->deletePostUseCase->execute($this->getParam(self::PARAM_POST_ID));
     return $this->redirect('Index', 'Home');
   }
 

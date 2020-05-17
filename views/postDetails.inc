@@ -19,6 +19,12 @@
         <div class="post-content"><?php self::htmlOut($data['post']->getContent()); ?></div>
       </article>
 
+      <?php if ($data['user']->getUserName() == $data['post']->getAuthor()):
+        self::beginActionForm('DeletePost', 'Post', array('pid' => $data['post']->getId()), 'post', 'new-comment'); ?>
+          <button class="primary-button">Delete Post</button>
+        <?php self::endActionForm();
+      endif; ?>
+
       <?php if (isset($data['user'])):
         self::beginActionForm('AddComment', 'Post', array('pid' => $data['post']->getId()), 'post', 'new-comment'); ?>
           <textarea placeholder="Leave a new comment..." name="cc" value="<?php self::htmlOut($data['commentContent']); ?>" required></textarea>
