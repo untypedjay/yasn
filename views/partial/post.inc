@@ -5,6 +5,7 @@
   </div>
   <?php self::actionLink($data['title'], 'Details', 'Post', array('pid' => $data['id']), 'post-title'); ?>
   <div class="post-footer">
-    Last activity <span>2 mins</span> ago by <span>flyredpanda</span>
+    <div>Last activity <span>2 mins</span> ago by <span>flyredpanda</span></div>
+    <div>12 comments</div>
   </div>
 </article>

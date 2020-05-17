@@ -14,9 +14,9 @@
     <?php self::renderView('partial/header', $data); ?>
     <main class="main-container">
       <div class="new-post-form">
-        <?php self::beginActionForm('LogIn', 'User', null, 'post'); ?>
-          <textarea placeholder="Type your post title"></textarea>
-          <textarea class="new-post-content" placeholder="Type your post"></textarea>
+        <?php self::beginActionForm('AddPost', 'Post', null, 'post'); ?>
+          <textarea placeholder="Type your post title" name="pt" value="<?php self::htmlOut($data['title']); ?>"></textarea>
+          <textarea class="new-post-content" placeholder="Type your post"  name="pc" value="<?php self::htmlOut($data['content']); ?>"></textarea>
           <button class="primary-button">Post</button>
         <?php self::endActionForm(); ?>
       </div>

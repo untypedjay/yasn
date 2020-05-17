@@ -9,10 +9,10 @@ spl_autoload_register(function ($class) { // immer wenn was neues daher kommt
 \Framework\Injector::register(\Services\Session::class, true);
 \Framework\Injector::register(\Model\Interfaces\Authentication::class, false, \Services\Authentication::class);
 
-$repoClass = \Services\MockRepository::class;
-$params = null;
-// $repoClass = \Services\Repository::class;
-// $params = array('server' => 'localhost', 'userName' => 'root', 'password' => '', 'database' => 'bookshop');
+// $repoClass = \Services\MockRepository::class;
+// $params = null;
+$repoClass = \Services\Repository::class;
+$params = array('server' => 'localhost', 'userName' => 'root', 'password' => '', 'database' => 'yasn');
 \Framework\Injector::register(\Model\Interfaces\Repository::class, false, $repoClass, $params);
 
 // handle request

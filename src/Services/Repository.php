@@ -46,54 +46,26 @@ class Repository implements \Model\Interfaces\Repository {
 
     // === public methods ===
 
-    public function getCategories(): array {
-        $categories = array();
-        $con = $this->getConnection();
-        $res = $this->executeQuery($con, 'SELECT id, name FROM categories');
-        while ($cat = $res->fetch_object()) {
-            $categories[] = new \Model\Entities\Category($cat->id, $cat->name);
-        }
-        $res->close();
-        $con->close();
-        return $categories;
-    }
-
-    public function getBooksForCategory(string $categoryId): array {
-        $books = array();
+    public function getUserForUserNameAndPassword(string $userName, string $password): ?\Model\Entities\User {
+        $user = null;
         $con = $this->getConnection();
         $stat = $this->executeStatement($con,
-                'SELECT id, title, author, price FROM books WHERE categoryId = ?',
-                function($s) use($categoryId) { $s->bind_param('i', $categoryId); });
-        $stat->bind_result($id, $title, $author, $price);
-        while ($stat->fetch()) {
-            $books[] = new \Model\Entities\Book($id, $title, $author, $price);
+                'SELECT id, passwordHash FROM user WHERE userName = ?',
+                function($s) use($userName) { $s->bind_param('s', $userName); });
+        $stat->bind_result($id, $passwordHash);
+        if ($stat->fetch() && password_verify($password, $passwordHash)) {
+            $user = new \Model\Entities\User($id, $userName);
         }
         $stat->close();
         $con->close();
-        return $books;
+        return $user;
     }
-
-    public function getBooksForFilter(string $filter): array {
-        $title = "%$filter%";
-        $books = array();
-        $con = $this->getConnection();
-        $stat = $this->executeStatement($con,
-                'SELECT id, title, author, price FROM books WHERE title LIKE ?',
-                function($s) use($title) { $s->bind_param('s', $title); });
-        $stat->bind_result($id, $title, $author, $price);
-        while ($stat->fetch()) {
-            $books[] = new \Model\Entities\Book($id, $title, $author, $price);
-        }
-        $stat->close();
-        $con->close();
-        return $books;
-    }
-
+    
     public function getUser(string $id): ?\Model\Entities\User {
         $user = null;
         $con = $this->getConnection();
         $stat = $this->executeStatement($con,
-            'SELECT id, userName FROM users WHERE id = ?',
+            'SELECT id, userName FROM user WHERE id = ?',
             function($s) use ($id) { $s->bind_param('i', $id); });
         $stat->bind_result($id, $userName);
         if ($stat->fetch()) {
@@ -104,38 +76,62 @@ class Repository implements \Model\Interfaces\Repository {
         return $user;
     }
     
-    public function getUserForUserNameAndPassword(string $userName, string $password): ?\Model\Entities\User {
-        $user = null;
+    public function getPosts(): array {
+        $posts = array();
         $con = $this->getConnection();
-        $stat = $this->executeStatement($con,
-                'SELECT id, passwordHash FROM users WHERE userName = ?',
-                function($s) use($userName) { $s->bind_param('s', $userName); });
-        $stat->bind_result($id, $passwordHash);
-        if ($stat->fetch() && password_verify($password, $passwordHash)) {
-            $user = new \Model\Entities\User($id, $userName);
+        $res = $this->executeQuery($con, 'SELECT id, title, author, date, content FROM post');
+        while ($post = $res->fetch_object()) {
+            $posts[] = new \Model\Entities\Post($post->id, $post->title, $post->author, $post->date, $post->content);
         }
-        $stat->close();
+        $res->close();
         $con->close();
-        return $user;
+        return $posts;
     }
 
-    public function createOrder(string $userId, array $books, string $creditCardName, string $creditCardNumber): ?string {
+    public function getPostFromId(string $postId): ?\Model\Entities\Post {
+        $con = $this->getConnection();
+        $res = $this->executeQuery($con, 'SELECT id, title, author, date, content FROM post');
+        while ($post = $res->fetch_object()) {
+            if ($post->id == $postId) {
+                return new \Model\Entities\Post($post->id, $post->title, $post->author, $post->date, $post->content);
+            }
+        }
+        $res->close();
+        $con->close();
+        return null;
+    }
+
+    public function getCommentsFromPost(string $postId): array {
+        $comments = array();
+        $con = $this->getConnection();
+        $res = $this->executeQuery($con, 'SELECT id, postId, content, author, date FROM comment');
+        while ($comment = $res->fetch_object()) {
+            if ($comment->postId == $postId) {
+                $comments[] = new \Model\Entities\Comment($comment->id, $comment->postId, $comment->content, $comment->author, $comment->date);
+            }
+        }
+        $res->close();
+        $con->close();
+        return $comments;
+    }
+
+    public function addComment(string $postId, string $content, string $author, string $date): void {
         $con = $this->getConnection();
         $con->autocommit(false);
         $stat = $this->executeStatement($con,
-            'INSERT INTO orders (userId, creditCardHolder, creditCardNumber) VALUES (?, ?, ?)',
-            function($s) use($userId, $creditCardName, $creditCardNumber) { $s->bind_param('iss', $userId, $creditCardName, $creditCardNumber); });
-        $orderId = $stat->insert_id;
-        $stat->close();
-        foreach ($books as $bookId => $count) {
-            for ($i = 0; $i < $count; $i++) {
-                $this->executeStatement($con,
-                    'INSERT INTO orderedBooks (orderId, bookId) VALUES (?, ?)',
-                    function($s) use($orderId, $bookId) { $s->bind_param('ii', $orderId, $bookId); })->close();
-            }
-        }
+            'INSERT INTO comment (postId, content, author, date) VALUES (?, ?, ?, ?)',
+            function($s) use($postId, $content, $author, $date) { $s->bind_param('isss', $postId, $content, $author, $date); })->close();
         $con->commit();
         $con->close();
-        return $orderId;
+    }
+
+    public function addPost(string $title, string $author, string $date, string $content): void {
+        $con = $this->getConnection();
+        $con->autocommit(false);
+        $stat = $this->executeStatement($con,
+            'INSERT INTO post (title, author, date, content) VALUES (?, ?, ?, ?)',
+            function($s) use($title, $author, $date, $content) { $s->bind_param('ssss', $title, $author, $date, $content); })->close();
+        $con->commit();
+        $con->close();
     }
 }
