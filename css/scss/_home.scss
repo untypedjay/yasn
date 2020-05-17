@@ -3,7 +3,9 @@
   display: flex;
   flex-direction: column;
   padding: 3em 1rem 0 1rem;
+}
 
+.search-form {
   input {
     border-radius: $component-border-radius;
     border: none;
@@ -11,6 +13,7 @@
     font-size: 1.5rem;
     background: $space-cadet-bright;
     color: white;
+    width: 100%;
   }
 }
 

@@ -134,4 +134,21 @@ class Repository implements \Model\Interfaces\Repository {
         $con->commit();
         $con->close();
     }
+
+    public function getPostsForKeywords(string $keywords): array {
+        $searchTerm = "%$keywords%";
+        $posts = array();
+        $con = $this->getConnection();
+        $stat = $this->executeStatement($con,
+                'SELECT id, title, author, date, content FROM post WHERE title LIKE ? OR author LIKE ? OR content LIKE ?',
+                function($s) use($searchTerm) { $s->bind_param('sss', $searchTerm, $searchTerm, $searchTerm); });
+        $stat->bind_result($id, $title, $author, $date, $content);
+        while ($stat->fetch()) {
+            $posts[] = new \Model\Entities\Post($id, $title, $author, $date, $content);
+        }
+        $stat->close();
+        // TODO: search comments
+        $con->close();
+        return $posts;
+    }
 }

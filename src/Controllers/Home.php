@@ -14,7 +14,8 @@ class Home extends \Framework\Controller {
   public function GET_Index() {
     return $this->renderView('home', array(
       'user' => $this->getAuthenticatedUserUseCase->execute(),
-      'posts' => $this->getPostsUseCase->execute()
+      'posts' => $this->getPostsUseCase->execute(),
+      'keywords' => null
     ));
   }
 }

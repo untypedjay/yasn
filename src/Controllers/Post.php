@@ -7,23 +7,27 @@ class Post extends \Framework\Controller {
   const PARAM_COMMENT_CONTENT = 'cc';
   const PARAM_POST_TITLE = 'pt';
   const PARAM_POST_CONTENT = 'pc';
+  const PARAM_KEYWORDS = 'k';
   
   private $getAuthenticatedUserUseCase;
   private $getPostFromIdUseCase;
   private $getCommentsForPostUseCase;
   private $addCommentToPostUseCase;
   private $addPostUseCase;
+  private $searchUseCase;
 
   public function __construct(\Model\GetAuthenticatedUserUseCase $getAuthenticatedUserUseCase,
                               \Model\GetPostFromIdUseCase $getPostFromIdUseCase,
                               \Model\GetCommentsForPostUseCase $getCommentsForPostUseCase,
                               \Model\AddCommentToPostUseCase $addCommentToPostUseCase,
-                              \Model\AddPostUseCase $addPostUseCase) {
+                              \Model\AddPostUseCase $addPostUseCase,
+                              \Model\SearchUseCase $searchUseCase) {
     $this->getAuthenticatedUserUseCase = $getAuthenticatedUserUseCase;
     $this->getPostFromIdUseCase = $getPostFromIdUseCase;
     $this->getCommentsForPostUseCase = $getCommentsForPostUseCase;
     $this->addCommentToPostUseCase = $addCommentToPostUseCase;
     $this->addPostUseCase = $addPostUseCase;
+    $this->searchUseCase = $searchUseCase;
   }
 
   public function GET_NewPost() {
@@ -45,7 +49,8 @@ class Post extends \Framework\Controller {
     return $this->renderView('postDetails', array(
       'user' => $this->getAuthenticatedUserUseCase->execute(),
       'post' => $this->getPostFromIdUseCase->execute($id),
-      'comments' => $this->getCommentsForPostUseCase->execute($id)
+      'comments' => $this->getCommentsForPostUseCase->execute($id),
+      'keywords' => null
     ));
   }
 
@@ -64,5 +69,13 @@ class Post extends \Framework\Controller {
   public function POST_AddPost() {
     $this->addPostUseCase->execute($this->getParam(self::PARAM_POST_TITLE), $this->getAuthenticatedUserUseCase->execute()->getUserName(), $this->getParam(self::PARAM_POST_CONTENT));
     return $this->redirect('Index', 'Home');
+  }
+
+  public function GET_Search() {
+    return $this->renderView('home', array(
+      'user' => $this->getAuthenticatedUserUseCase->execute(),
+      'keywords' => $this->getParam(self::PARAM_KEYWORDS),
+      'posts' => $this->hasParam(self::PARAM_KEYWORDS) ? $this->searchUseCase->execute($this->getParam(self::PARAM_KEYWORDS)) : null
+    ));
   }
 }
