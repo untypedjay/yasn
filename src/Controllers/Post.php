@@ -54,7 +54,8 @@ class Post extends \Framework\Controller {
     if ($user != null) {
       return $this->renderView('newPost', array(
         'user' => $user,
-        'keywords' => null
+        'keywords' => null,
+        'latestComment' => $this->getLatestCommentUseCase->execute()
       ));
     } else {
       return $this->renderView('login', array(

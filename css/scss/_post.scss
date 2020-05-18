@@ -26,3 +26,9 @@
     margin-top: 0.5em;
   }
 }
+
+@media (min-width: 650px) {
+  .post {
+    width: 650px;
+  }
+}

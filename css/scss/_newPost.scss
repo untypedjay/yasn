@@ -1,12 +1,18 @@
 .new-post-form {
   display: flex;
   flex-direction: column;
+  align-items: center;
   margin: 0 1rem;
   height: 50vh;
+  width: 95%;
 
   textarea,
   button {
     width: 100%;
+  }
+
+  button {
+    max-width: 500px;
   }
 
   textarea {
@@ -24,4 +30,10 @@
 .new-post-content {
   min-height: 8em;
   margin-top: 1em;
+}
+
+@media (min-width: 650px) {
+  .new-post-form {
+    width: 650px;
+  }
 }

@@ -23,6 +23,7 @@
 .login-form {
   display: flex;
   flex-direction: column;
+  align-items: center;
 
   input {
     border-radius: $component-border-radius;
@@ -32,9 +33,20 @@
     background: $space-cadet-bright;
     color: white;
     margin-bottom: 0.5em;
+    width: 100%;
   }
 
   button {
     margin: 1em 0;
+    width: 100%;
+  }
+}
+
+@media (min-width: 550px) {
+  .login-form {
+    input,
+    button {
+      width: 550px;
+    }
   }
 }

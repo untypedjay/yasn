@@ -13,16 +13,15 @@
   <body class="wrapper">
     <?php self::renderView('partial/header', $data); ?>
     <main class="main-container">
-      <div class="new-post-form">
-        <?php self::beginActionForm('AddPost', 'Post', null, 'post'); ?>
-          <textarea placeholder="Type your post title" name="pt" value="<?php self::htmlOut($data['title']); ?>" required></textarea>
-          <textarea class="new-post-content" placeholder="Type your post"  name="pc" value="<?php self::htmlOut($data['content']); ?>" required></textarea>
-          <button class="primary-button">Post</button>
-        <?php self::endActionForm(); ?>
-      </div>
+      <?php self::beginActionForm('AddPost', 'Post', null, 'post', 'new-post-form'); ?>
+        <textarea placeholder="Type your post title" name="pt" value="<?php self::htmlOut($data['title']); ?>" required></textarea>
+        <textarea class="new-post-content" placeholder="Type your post"  name="pc" value="<?php self::htmlOut($data['content']); ?>" required></textarea>
+        <button class="primary-button">Post</button>
+      <?php self::endActionForm(); ?>
     </main>
     <?php self::renderView('partial/footer', array (
-      'user' => $data['user']
+      'user' => $data['user'],
+      'latestComment' => $data['latestComment']
     )); ?>
   </body>
 </html>

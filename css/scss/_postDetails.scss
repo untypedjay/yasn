@@ -1,7 +1,13 @@
+.details-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .post-details {
   background-color: white;
   border-radius: $component-border-radius;
-  margin: 11em 1rem 0 1rem;
+  margin: 11em 1rem 1em 1rem;
   color: $space-cadet;
   display: flex;
   flex-direction: column;
@@ -26,6 +32,7 @@
 .new-comment {
   display: flex;
   flex-direction: column;
+  align-items: center;
   margin: 2em 1rem;
 
   textarea {
@@ -47,5 +54,19 @@
   color: $space-cadet;
   display: flex;
   flex-direction: column;
+  align-items: center;
   padding: 1em;
+}
+
+@media (min-width: 650px) {
+  .post-details {
+    width: 650px;
+  }
+
+  .new-comment {
+    textarea,
+    button {
+      width: 650px;
+    }
+  }
 }

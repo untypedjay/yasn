@@ -4,6 +4,10 @@
   box-shadow: $default-box-shadow;
   background-color: white;
   margin-bottom: 1em;
+
+  button {
+    border: none;
+  }
 }
 
 .comment-author {
@@ -14,4 +18,10 @@
   color: $space-cadet-bright;
   margin-top: 0.5em;
   text-align: right;
+}
+
+@media (min-width: 650px) {
+  .comment-content {
+    width: 650px;
+  }
 }

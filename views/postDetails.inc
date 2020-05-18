@@ -13,11 +13,13 @@
   <body class="wrapper">
     <?php self::renderView('partial/header', $data); ?>
     <main>
-      <article class="post-details">
-        <div class="post-title"><?php self::htmlOut($data['post']->getTitle()); ?></div>
-        <div class="post-metadata">by <?php self::htmlOut($data['post']->getAuthor()); ?>, <?php self::htmlOut($data['post']->getTime()); ?></div>
-        <div class="post-content"><?php self::htmlOut($data['post']->getContent()); ?></div>
-      </article>
+      <div class="details-container">
+        <article class="post-details">
+          <div class="post-title"><?php self::htmlOut($data['post']->getTitle()); ?></div>
+          <div class="post-metadata">by <?php self::htmlOut($data['post']->getAuthor()); ?>, <?php self::htmlOut($data['post']->getTime()); ?></div>
+          <div class="post-content"><?php self::htmlOut($data['post']->getContent()); ?></div>
+        </article>
+      </div>
 
       <?php if (isset($data['user']) && ($data['user']->getUserName() == $data['post']->getAuthor())):
         self::beginActionForm('DeletePost', 'Post', array('pid' => $data['post']->getId()), 'post', 'new-comment'); ?>
