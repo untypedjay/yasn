@@ -20,7 +20,8 @@
             'title' => $post->getTitle(),
             'author' => $post->getAuthor(),
             'time' => $post->getTime(),
-            'numberOfComments' => $data['nrOfComments'][$post->getId()]
+            'numberOfComments' => $data['nrOfComments'][$post->getId()],
+            'latestComment' => $data['latestCommentOfPost'][$post->getId()]
           ));
         }
       } else { ?>
@@ -28,7 +29,8 @@
       <?php } ?>
     </main>
     <?php self::renderView('partial/footer', array (
-      'user' => $data['user']
+      'user' => $data['user'],
+      'latestComment' => $data['latestComment']
     )); ?>
   </body>
 </html>

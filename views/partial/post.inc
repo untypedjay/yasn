@@ -5,7 +5,9 @@
   </div>
   <?php self::actionLink($data['title'], 'Details', 'Post', array('pid' => $data['id']), 'post-title'); ?>
   <div class="post-footer">
-    <div>Last activity <span>2 mins</span> ago by <span>flyredpanda</span></div>
+    <?php if (isset($data['latestComment'])): ?>
+      <div>Latest comment from <?php self::htmlOut($data['latestComment']->getAuthor()); ?> on <?php self::htmlOut($data['latestComment']->getTime()); ?></div>
+    <?php endif; ?>
     <div><?php self::htmlOut($data['numberOfComments']); ?> comment(s)</div>
   </div>
 </article>

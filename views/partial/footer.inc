@@ -1,6 +1,6 @@
 <footer>
   <div>
-    Last post from <span>cool_guy123</span> <span>15 mins</span> ago.
+    Latest comment from <?php self::htmlOut($data['latestComment']->getAuthor()); ?> on <?php self::htmlOut($data['latestComment']->getTime()); ?>.
   </div>
   <div>
     <?php if (!isset($data['user'])):

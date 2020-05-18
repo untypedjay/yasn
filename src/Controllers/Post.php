@@ -19,6 +19,7 @@ class Post extends \Framework\Controller {
   private $deletePostUseCase;
   private $deleteCommentUseCase;
   private $getPostFromCommentUseCase;
+  private $getLatestCommentUseCase;
 
   public function __construct(\Model\GetAuthenticatedUserUseCase $getAuthenticatedUserUseCase,
                               \Model\GetPostFromIdUseCase $getPostFromIdUseCase,
@@ -28,7 +29,8 @@ class Post extends \Framework\Controller {
                               \Model\SearchUseCase $searchUseCase,
                               \Model\DeletePostUseCase $deletePostUseCase,
                               \Model\DeleteCommentUseCase $deleteCommentUseCase,
-                              \Model\GetPostFromCommentUseCase $getPostFromCommentUseCase) {
+                              \Model\GetPostFromCommentUseCase $getPostFromCommentUseCase,
+                              \Model\GetLatestCommentUseCase $getLatestCommentUseCase) {
     $this->getAuthenticatedUserUseCase = $getAuthenticatedUserUseCase;
     $this->getPostFromIdUseCase = $getPostFromIdUseCase;
     $this->getCommentsForPostUseCase = $getCommentsForPostUseCase;
@@ -38,6 +40,7 @@ class Post extends \Framework\Controller {
     $this->deletePostUseCase = $deletePostUseCase;
     $this->deleteCommentUseCase = $deleteCommentUseCase;
     $this->getPostFromCommentUseCase = $getPostFromCommentUseCase;
+    $this->getLatestCommentUseCase = $getLatestCommentUseCase;
   }
 
   public function GET_NewPost() {
@@ -61,7 +64,8 @@ class Post extends \Framework\Controller {
       'user' => $this->getAuthenticatedUserUseCase->execute(),
       'post' => $this->getPostFromIdUseCase->execute($id),
       'comments' => $this->getCommentsForPostUseCase->execute($id),
-      'keywords' => null
+      'keywords' => null,
+      'latestComment' => $this->getLatestCommentUseCase->execute()
     ));
   }
 

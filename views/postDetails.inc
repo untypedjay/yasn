@@ -49,7 +49,8 @@
 
     </main>
     <?php self::renderView('partial/footer', array (
-      'user' => $data['user']
+      'user' => $data['user'],
+      'latestComment' => $data['latestComment']
     )); ?>
   </body>
 </html>

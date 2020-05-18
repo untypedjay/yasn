@@ -36,4 +36,8 @@ class Comment {
     $time = strtotime($this->time);
     return date('M d', $time) . ' at ' . date('H:i A', $time);
   }
+
+  public function getTimeRaw() {
+    return strtotime($this->time);
+  }
 }
