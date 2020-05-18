@@ -76,6 +76,21 @@ class Repository implements \Model\Interfaces\Repository {
         return $user;
     }
 
+    public function userExists(string $userName): bool {
+        $exists = false;
+        $con = $this->getConnection();
+        $stat = $this->executeStatement($con,
+            'SELECT id FROM user WHERE userName = ?',
+            function($s) use ($userName) { $s->bind_param('s', $userName); });
+        $stat->bind_result($id);
+        if ($stat->fetch()) {
+            $exists = true;
+        }
+        $stat->close();
+        $con->close();
+        return $exists;
+    }
+
     public function addUser(string $userName, string $password): void {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         $con = $this->getConnection();

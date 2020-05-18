@@ -9,15 +9,18 @@ class User extends \Framework\Controller {
   private $signInUseCase;
   private $signOutUseCase;
   private $signUpUserUseCase;
+  private $userExistsUseCase;
 
   public function __construct(\Model\GetAuthenticatedUserUseCase $getAuthenticatedUserUseCase,
                               \Model\SignInUseCase $signInUseCase,
                               \Model\SignOutUseCase $signOutUseCase,
-                              \Model\SignUpUserUseCase $signUpUserUseCase) {
+                              \Model\SignUpUserUseCase $signUpUserUseCase,
+                              \Model\UserExistsUseCase $userExistsUseCase) {
     $this->getAuthenticatedUserUseCase = $getAuthenticatedUserUseCase;
     $this->signInUseCase = $signInUseCase;
     $this->signOutUseCase = $signOutUseCase;
     $this->signUpUserUseCase = $signUpUserUseCase;
+    $this->userExistsUseCase = $userExistsUseCase;
   }
 
   public function GET_LogIn() {
@@ -54,13 +57,14 @@ class User extends \Framework\Controller {
   }
 
   public function POST_SignUp() {
-    if (!$this->signUpUserUseCase->execute($this->getParam(self::PARAM_USER_NAME), $this->getParam(self::PARAM_PASSWORD))) {
+    if ($this->userExistsUseCase->execute($this->getParam(self::PARAM_USER_NAME))) {
       return $this->renderView('signup', array(
         'user' => $this->getAuthenticatedUserUseCase->execute(),
         'userName' => $this->getParam(self::PARAM_USER_NAME),
         'errors' => array('Please provide a user name and a password.')
       ));
     }
+    $this->signUpUserUseCase->execute($this->getParam(self::PARAM_USER_NAME), $this->getParam(self::PARAM_PASSWORD));
     return $this->redirect('Index', 'Home');
   }
 }

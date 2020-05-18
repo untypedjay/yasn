@@ -20,6 +20,8 @@ class Post extends \Framework\Controller {
   private $deleteCommentUseCase;
   private $getPostFromCommentUseCase;
   private $getLatestCommentUseCase;
+  private $getNumberOfCommentsOfPostUseCase;
+  private $getLatestCommentOfPostUseCase;
 
   public function __construct(\Model\GetAuthenticatedUserUseCase $getAuthenticatedUserUseCase,
                               \Model\GetPostFromIdUseCase $getPostFromIdUseCase,
@@ -30,7 +32,9 @@ class Post extends \Framework\Controller {
                               \Model\DeletePostUseCase $deletePostUseCase,
                               \Model\DeleteCommentUseCase $deleteCommentUseCase,
                               \Model\GetPostFromCommentUseCase $getPostFromCommentUseCase,
-                              \Model\GetLatestCommentUseCase $getLatestCommentUseCase) {
+                              \Model\GetLatestCommentUseCase $getLatestCommentUseCase,
+                              \Model\GetNumberOfCommentsOfPostUseCase $getNumberOfCommentsOfPostUseCase,
+                              \Model\GetLatestCommentOfPostUseCase $getLatestCommentOfPostUseCase) {
     $this->getAuthenticatedUserUseCase = $getAuthenticatedUserUseCase;
     $this->getPostFromIdUseCase = $getPostFromIdUseCase;
     $this->getCommentsForPostUseCase = $getCommentsForPostUseCase;
@@ -41,6 +45,8 @@ class Post extends \Framework\Controller {
     $this->deleteCommentUseCase = $deleteCommentUseCase;
     $this->getPostFromCommentUseCase = $getPostFromCommentUseCase;
     $this->getLatestCommentUseCase = $getLatestCommentUseCase;
+    $this->getNumberOfCommentsOfPostUseCase = $getNumberOfCommentsOfPostUseCase;
+    $this->getLatestCommentOfPostUseCase = $getLatestCommentOfPostUseCase;
   }
 
   public function GET_NewPost() {
@@ -101,7 +107,10 @@ class Post extends \Framework\Controller {
     return $this->renderView('home', array(
       'user' => $this->getAuthenticatedUserUseCase->execute(),
       'keywords' => $this->getParam(self::PARAM_KEYWORDS),
-      'posts' => $this->hasParam(self::PARAM_KEYWORDS) ? $this->searchUseCase->execute($this->getParam(self::PARAM_KEYWORDS)) : null
+      'posts' => $this->hasParam(self::PARAM_KEYWORDS) ? $this->searchUseCase->execute($this->getParam(self::PARAM_KEYWORDS)) : null,
+      'nrOfComments' => $this->getNumberOfCommentsOfPostUseCase->execute(),
+      'latestComment' => $this->getLatestCommentUseCase->execute(),
+      'latestCommentOfPost' => $this->getLatestCommentOfPostUseCase->execute()
     ));
   }
 }
