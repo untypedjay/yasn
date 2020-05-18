@@ -19,7 +19,7 @@
         <div class="post-content"><?php self::htmlOut($data['post']->getContent()); ?></div>
       </article>
 
-      <?php if ($data['user']->getUserName() == $data['post']->getAuthor()):
+      <?php if (isset($data['user']) && ($data['user']->getUserName() == $data['post']->getAuthor())):
         self::beginActionForm('DeletePost', 'Post', array('pid' => $data['post']->getId()), 'post', 'new-comment'); ?>
           <button class="primary-button">Delete Post</button>
         <?php self::endActionForm();

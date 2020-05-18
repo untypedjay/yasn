@@ -21,11 +21,12 @@
             'author' => $post->getAuthor(),
             'time' => $post->getTime(),
             'numberOfComments' => $data['nrOfComments'][$post->getId()],
-            'latestComment' => $data['latestCommentOfPost'][$post->getId()]
+            'latestComment' => $data['latestCommentOfPost'][$post->getId()],
+            'user' => $data['user']
           ));
         }
       } else { ?>
-        <p>No posts to display.</p>
+        <p class="no-posts">No posts to display.</p>
       <?php } ?>
     </main>
     <?php self::renderView('partial/footer', array (

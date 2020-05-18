@@ -36,12 +36,28 @@
   background-color: white;
   border-top-left-radius: $layout-border-radius;
   border-top-right-radius: $layout-border-radius;
-  margin-top: 13em;
+  margin-top: 11em;
   color: black;
+}
+
+.no-posts {
+  text-align: center;
+  color: $space-cadet;
+  font-size: 1.3rem;
+  margin: 1em;
 }
 
 footer {
   background-color: $cyclamen;
   padding: 2em;
   height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+  button {
+    font-size: 1rem;
+    color: $space-cadet;
+  }
 }
